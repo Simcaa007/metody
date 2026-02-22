@@ -16,5 +16,66 @@ namespace _02
         {
             InitializeComponent();
         }
+
+        int[] ulozit(TextBox tb)
+        {
+            int[] pole = new int[tb.Lines.Length];
+            int radek = 0;
+            foreach (string line in tb.Lines)
+            {
+                int cislo = int.Parse(line);
+                pole[radek] = cislo;
+                radek++;
+            }
+            return pole;
+        }
+
+        void zobrazit(int[] pole, ListBox lb)
+        {
+            foreach (int i in pole)
+            {
+                lb.Items.Add(i);
+            }
+        }
+
+        bool rostouci(int[] pole)
+        {
+            foreach(int i in pole)
+            {
+                if (pole[i] > pole[i + 1])
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        int[] pole;
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // ULOZIT
+            pole = new int[0];
+            ulozit(textBox1);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            // ZOBRAZIT
+            zobrazit(ulozit(textBox1), listBox1);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            // ROSTOUCI?
+            if (!rostouci(ulozit(textBox1)))
+            {
+                MessageBox.Show("Neni rostoucí");
+            }
+            else
+            {
+                MessageBox.Show("Je rostoucí");
+            }
+        }
     }
 }
